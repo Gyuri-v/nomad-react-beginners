@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>버튼 세기</title>
+</head>
+<body>
+  <span class="counter">Tota clicks: 0</span> <br>
+  <buttoni id="btn">Click me</buttoni>
+</body>
+<script>
+  const button = document.getElementById('btn')
+  const span = document.querySelector('.counter');
+  let counter = 0;
+
+  function handleClick() {
+    counter += 1;
+    span.innerText = `Tota clicks: ${counter}`;
+  }
+
+  button.addEventListener('click', handleClick);
+</script>
+</html>
