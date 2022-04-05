@@ -12,23 +12,29 @@
 
 <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
-<script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script> <!-- 아직 초기단계라 이렇게 사용 -->
+<script type="text/babel"> 
   const root = document.querySelector("#root");
-  const h3 = React.createElement( 
-    "h3", 
-    {
-      id: "h3", 
-      style: {color: "red"},
-      onMouseEnter: () => console.log('mouse enter'),
-    }, 
-    "Hello. I'm span" ); // (html태그, 해당 태그의 property, 안의 내용) 
-  const btn = React.createElement( 
-    "button", 
-    {
-      onClick: () => console.log('im clicked')
-    }, 
-    "Click me" ); 
-  const container = React.createElement( "div", null, [h3, btn] ); 
-  ReactDOM.render(container, root); // react elem를 html으로 만들어 배치한다는 것 (elem, 위치)
+  const Title = () => {
+    return(
+      <h3 id="title" onMouseEnter={() => console.log('mouse enter')}>
+        Hello. I'm a title
+      </h3>
+    )
+  }
+  const Button = () => {
+    return(
+      <button style={{backgroundColor: "tomato"}} onClick={() => console.log('im clicked')}>
+        Click me
+      </button>
+    );
+  }
+  const Container = () => (
+    <div>
+      <Title />
+      <Button />
+    </div>
+  )
+  ReactDOM.render(<Container />, root);
 </script>
 </html>
