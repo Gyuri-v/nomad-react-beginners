@@ -10,76 +10,42 @@
   <div id="root"></div>
 </body>
 
-<script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script> <!-- 아직 초기단계라 이렇게 사용 -->
 <script type="text/babel"> 
-  const root = document.querySelector("#root");
-  function MinutesToHours() {
-    const [amount, setAmount] = React.useState();
-    const [inverted, setInverted] = React.useState(false);
-    const onChnage = (event) => {
-      setAmount(event.target.value)
-    };
-    const reset = () => setAmount(0);
-    const onInvert = () => {
-      reset();
-      setInverted((current) => !current);
-    };
+  function Btn({text, fontSize = 14}) {
     return (
-      <div>
-        <div>
-          <label htmlFor="minutes">Minutes</label>
-          <input 
-            id="minutes" 
-            type="number" 
-            placeholder="Minutes" 
-            value={inverted ? Math.round(amount*60) : amount} 
-            onChange={onChnage} 
-            disabled={inverted} 
-          />
-        </div>
-        <div>
-          <label htmlFor="hours">Hours</label>
-          <input 
-            id="hours" 
-            type="number" 
-            placeholder="Hours" 
-            value={inverted ? amount : Math.round(amount/60)}  
-            onChange={onChnage} 
-            disabled={!inverted} 
-          />
-        </div>
-        <button onClick={reset}>Reset</button>
-        <button onClick={onInvert}>{inverted ? "Turn back" : "Invert"}</button>
-      </div>
-    );
-  };
-
-  function KmToMiles() {
-    return <h3>KM 2 M</h3>
+      <button
+        style={{
+          backgroundColor: "tomato", 
+          color: "white", 
+          padding: "10px 20px", 
+          borderRadius: "10px", 
+          border: "0",
+          fontSize,
+        }}
+      >
+        {text}
+      </button>
+    )
   }
-  
+  Btn.propTypes = {
+    text: PropTypes.string.isRequired,
+    fontSize: PropTypes.number,
+  }
   function App() {
-    const [index, setIndex] = React.useState("xx");
-    const onSelect = (event) => {
-      setIndex(event.target.value);
-    }
+    const [value, setValue] = React.useState("Save Changes")
+    const changeValue = () => setValue("Revert Changes");
     return (
       <div>
-        <h1 className="hi">Super Converter</h1>
-        <select value={index} onChange={onSelect}>
-          <option value="xx">Select your units</option>
-          <option value="0">Minutes & Hours</option>
-          <option value="1">Km & Miles</option>
-        </select>
-        <hr />
-        {index === "xx" ? "Please select your units" : null}
-        {index === "0" ? <MinutesToHours /> : null}
-        {index === "1" ? <KmToMiles /> : null}
+        <Btn text={value} fontSize={24} />
+        <Btn text={"Continue"} />
       </div>
     );
   };
+  const root = document.querySelector("#root");
   ReactDOM.render(<App />, root);
 </script>
 </html>
